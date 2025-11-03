@@ -5,13 +5,45 @@
         {% include google-adsense.html %}
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>{{ page.title | default: site.title }}</title>
-        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/blog-theme.css">
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400,700|Fjalla+One|Lora:400,700&display=swap" rel="stylesheet">
         {% include google-analytics.html %}        
     </head>
     <body>
-        {% include header.html %}
-        <main>
+        <div class="top-menu">
+            <ul>
+                <li>Home</li>
+                <li>Animes</li>
+                <li>História dos Games</li>
+                <li>Mangás</li>
+                <li>Soundtrack</li>
+            </ul>
+        </div>
+        
+        <header id="header-wrapper">
+            <div class="header-inner">
+                <img src="https://3.bp.blogspot.com/-ltyYh4ysBHI/U04MKlHc6pI/AAAAAAAADQo/PFxXaGZu9PQ/s66-c/no-image.png" alt="Tiaguins logo" class="logo">
+            </div>
+        </header>
+
+        <nav id="nav">
+            <ul>
+                <li>Home</li>
+                <li>Playstation</li>
+                <li>Xbox</li>
+                <li>Nintendo</li>
+                <li>Sega</li>
+                <li>PC</li>
+                <li>Cultura Geek</li>
+            </ul>
+        </nav>
+
+        <main id="content-wrapper">
             {{ content }}
         </main>
+
+        <footer id="footer-wrapper">
+            <p>&copy; {{ site.time | date: '%Y' }} Tiaguins - Todos os direitos reservados.</p>
+        </footer>        
     </body>
 </html>
