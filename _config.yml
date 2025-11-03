@@ -3,3 +3,4 @@ baseurl: "" # manter vazio para publicar em https://tiagosousaeti.github.io/repo
 url: "https://tiagosousaeti.github.io/tiaguins" # ajuste para seu usuário/repo
 markdown: kramdown
 google_analytics: G-MESVYTH505
+google_adsense: ca-pub-7884324399075505
