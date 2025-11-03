@@ -1,0 +1,4 @@
+title: Tiaguins Short
+baseurl: "" # manter vazio para publicar em https://tiagosousaeti.github.io/repo
+url: "https://tiagosousaeti.github.io/tiaguins" # ajuste para seu usuário/repo
+markdown: kramdown
