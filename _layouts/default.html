@@ -9,41 +9,65 @@
         {% include google-adsense.html %}
         {% include google-analytics.html %}        
     </head>
-    <body>
-        <div class="top-menu">
-            <ul>
-                <li>Home</li>
-                <li>Animes</li>
-                <li>História dos Games</li>
-                <li>Mangás</li>
-                <li>Soundtrack</li>
-            </ul>
-        </div>
-        
-        <header id="header-wrapper">
-            <div class="header-inner">
-                <img src="https://3.bp.blogspot.com/-ltyYh4ysBHI/U04MKlHc6pI/AAAAAAAADQo/PFxXaGZu9PQ/s66-c/no-image.png" alt="Tiaguins logo" class="logo">
+    <body id="layout">
+        <div id="outer-wrapper">
+            <div class="top-menu">
+                <ul class="menubar">
+                    <li>Home</li>
+                    <li>Animes</li>
+                    <li>História dos Games</li>
+                    <li>Mangás</li>
+                    <li>Soundtrack</li>
+                </ul>
             </div>
-        </header>
-
-        <nav id="nav">
-            <ul>
-                <li>Home</li>
-                <li>Playstation</li>
-                <li>Xbox</li>
-                <li>Nintendo</li>
-                <li>Sega</li>
-                <li>PC</li>
-                <li>Cultura Geek</li>
-            </ul>
-        </nav>
-
-        <main id="content-wrapper">
-            {{ content }}
-        </main>
-
-        <footer id="footer-wrapper">
-            <p>&copy; {{ site.time | date: '%Y' }} Tiaguins - Todos os direitos reservados.</p>
-        </footer>        
+            
+            <div id="header-wrapper">
+                <div class="container header-inner">
+                    <div class="header">
+                        <a class="titlewrapper" href="#">
+                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgZmFkKyUPaXJW84mnjAwN1uWw_rxWwX6G4bj_XezHt0k89ePoIQ81BxH9ZvxBV9FSQ4Rm2pfwIKh8lFUM1iUWI_yzPhIuRy00O2wRnweH4yDfhO2-kDUSxyafmTZjyC25LVGRc2yV-nYQ/s1600/NovoDefinitivo.png" alt="Tiaguins logo" class="logo">
+                        </a>
+                    </div>
+                    <div class="header-right" aria-hidden="true">
+                        <!-- reserved space (ads / banner) -->
+                    </div>
+                </div>
+            </div>
+            
+            <nav id="nav" role="navigation">
+                <ul class="menubar2">
+                    <li>Home</li>
+                    <li>Playstation</li>
+                    <li>Xbox</li>
+                    <li>Nintendo</li>
+                    <li>Sega</li>
+                    <li>PC</li>
+                    <li>Cultura Geek</li>
+                </ul>
+            </nav>
+            
+            <div id="content-wrapper" class="container">
+                <div id="post-wrapper">
+                    <div class="post-container">
+                        {{ content }}
+                    </div>
+                </div>
+            </div>
+            
+            <div id="bottombar" role="contentinfo">
+                <div class="left"></div>
+                <div class="center"></div>
+                <div class="right"></div>
+            </div>
+            
+            <footer id="footer-wrapper">
+                <div class="container">
+                    <div class="footer-left">
+                        <p>&copy; {{ site.time | date: "%Y" }} Tiaguins - Todos os direitos reservados.</p>
+                    </div>
+                    <div class="footer-right"></div>
+                </div>
+            </footer>
+        </div>        
     </body>
 </html>

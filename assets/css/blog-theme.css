@@ -1,12 +1,40 @@
-body{margin:0;padding:0;font-family:'Lora',serif;background:#000 url('https://2.bp.blogspot.com/-A9C1bC9HGU8/UzQJRMZ9FuI/AAAAAAAADLc/3DT1QZzZQxk/s1600/bg-retro.jpg') repeat;color:#ddd;}
-.top-menu{background:#000;border-bottom:2px solid #f00;text-align:center;}
-.top-menu ul{list-style:none;margin:0;padding:8px 0;display:flex;justify-content:center;flex-wrap:wrap;}
-.top-menu li{color:#fff;font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:14px;margin:0 12px;cursor:pointer;}
-#header-wrapper{background:#111;text-align:center;padding:20px 0;}
-#header-wrapper .logo{max-height:80px;width:auto;}
-#nav{background:#202020;border-top:1px solid #333;border-bottom:1px solid #333;}
-#nav ul{list-style:none;margin:0;padding:10px 0;display:flex;justify-content:center;flex-wrap:wrap;}
-#nav li{color:#fff;font-family:'Fjalla One',sans-serif;text-transform:uppercase;font-size:14px;margin:0 15px;cursor:pointer;}
-#content-wrapper{background:rgba(0,0,0,0.7);max-width:900px;margin:30px auto;padding:20px;border-radius:6px;box-shadow:0 0 10px rgba(0,0,0,0.5);}
-#footer-wrapper{background:#000;color:#aaa;text-align:center;padding:20px 10px;font-size:13px;font-family:'Oswald',sans-serif;text-transform:uppercase;border-top:2px solid #f00;}
-a{color:#f33;text-decoration:none;}a:hover{text-decoration:underline;}
+/* Reset e fontes básicas */
+html,body,div,span,h1,h2,h3,h4,h5,h6,p,ul,li,a,img{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}body{font-family:'Lora',Georgia,serif;color:#575757;background:#fff url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiSq1J_dUzYJi07itM1qdbE_xTMRBlnbrjjQavCnFHH_E5CxWT40qosNVABJMkZnPFmFlvO27gvy0QV-LetqI9D5M5x7vGlBWS4LWEwpGkVW_UYYbQnWkirEe94dsqDxhOK601QOdaDhpg/s1600/7562527b.jpg') center center fixed;background-size:cover;line-height:1.71429}
+/* outer wrapper */
+#outer-wrapper{max-width:1200px;margin:0 auto;position:relative;box-shadow:0 0 1px rgba(0,0,0,.4);background:#fff;overflow:hidden}
+/* top menu */
+.top-menu{background:#161616;border-top:2px solid #c32700;border-bottom:1px solid #e6e6e6;color:#fff;padding:0 0}
+.top-menu .menubar{list-style:none;display:flex;justify-content:center;align-items:center;height:38px;gap:12px;padding:0;margin:0}
+.top-menu .menubar li{font-family:'Oswald',sans-serif;font-size:12px;text-transform:uppercase;color:#fff;padding:0 12px;cursor:default}
+.top-menu .menubar li:hover{color:#ff5b4d}
+/* header */
+#header-wrapper{padding:0 40px 0 40px;min-height:100px;background:transparent}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.header{width:30%;max-width:270px}
+.header .titlewrapper{display:block}
+.logo{display:block;max-height:100px;height:auto;padding:20px 0;margin:0 auto;object-fit:contain}
+/* navbar categories */
+#nav{background:#222;padding:0 40px;border-top:0;border-bottom:0}
+#nav .menubar2{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:0;margin:0;height:50px;align-items:center}
+#nav .menubar2 li{font-family:'Oswald',Impact,Arial,sans-serif;color:#fff;text-transform:uppercase;font-size:16px;letter-spacing:2px;padding:0 22px;line-height:50px;cursor:default}
+#nav .menubar2 li:hover{opacity:.95}
+/* content */
+.container{width:1170px;margin:0 auto;max-width:100%}
+#content-wrapper{padding:30px 40px;background:transparent}
+#post-wrapper{width:740px;max-width:100%;margin:10px auto;float:none}
+.post-container{background:rgba(255,255,255,0.95);padding:18px;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.post h1,.post h2{font-family:'Oswald',sans-serif;color:#383838}
+.post-body{line-height:1.6;color:#575757;font-size:16px}
+/* footer / bottombar */
+#bottombar{background:#161616;color:#dddddd;padding:15px 28px}
+#footer-wrapper{background:#0A0A0A;color:#949494;padding:8px 20px;font-size:14px}
+.footer-left{float:left;margin:10px 0}
+.footer-right{float:right;margin:10px 0}
+#footer-wrapper a{color:#b8b8b8}
+#footer-wrapper a:hover{color:#fff}
+/* links */
+a{color:#c32700;text-decoration:none}
+a:hover{text-decoration:underline}
+/* small helpers */
+.clear:after{content:"";display:block;clear:both;height:0}
+@media(max-width:900px){.container{padding:0 20px}#nav .menubar2{gap:6px;padding:0 6px}#post-wrapper{width:100%;padding:0}}
