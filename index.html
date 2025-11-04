@@ -12,38 +12,68 @@ title: Tiaguins
 </section>
 
 
-<script>
-    async function runRedirect() {
-        const params = new URLSearchParams(window.location.search);
-        const code = params.get("code");
-        if (!code) {
-            document.getElementById("ad").innerHTML += "<p>Adicione ?code=SEU_CODIGO à URL.</p>";
-            return;
-        }
-
-        try {
-            const res = await fetch("/redirects.json");
-            const redirects = await res.json();
-            const target = redirects[code];
-            if (!target) {
-                document.getElementById("ad").innerHTML += "<p>Código inválido.</p>";
-                return;
-            }
-
-            let count = 5;
-            const countEl = document.getElementById("count");
-            const timer = setInterval(() => {
-                count--;
-                countEl.textContent = count;
-                if (count <= 0) {
-                    clearInterval(timer);
-                    window.location.href = target;
-                }
-            }, 1000);
-        } catch (e) {
-            document.getElementById("ad").innerHTML += "<p>Erro ao carregar os redirecionamentos.</p>";
-            console.error(e);
-        }
+<script> 
+(function(){
+  // 1️⃣ Lê o JSON gerado pelo Jekyll (a partir do _data/redirects.yml)
+  let redirects = {};
+  try {
+    const dataEl = document.getElementById('redirects-data');
+    if (dataEl && dataEl.textContent.trim()) {
+      redirects = JSON.parse(dataEl.textContent);
     }
-    runRedirect(); 
+  } catch(e) {
+    console.error("Erro ao ler YAML:", e);
+  }
+
+  // 2️⃣ Verifica se há a lista de códigos
+  const list = redirects.codes || [];
+
+  // 3️⃣ Lê o parâmetro ?code= (exemplo: ?code=1 ou ?code=revista2)
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+
+  if (!code) {
+    document.getElementById('ad').innerHTML +=
+      '<p>Adicione <code>?code=NUMERO</code> à URL.</p>';
+    return;
+  }
+
+  // 4️⃣ Localiza o item correspondente
+  // Você pode buscar por posição (1, 2, 3...) ou parte do nome
+  let item = null;
+  if (!isNaN(code)) {
+    // se for número: usa o índice
+    const index = parseInt(code, 10) - 1;
+    if (list[index]) item = list[index];
+  } else {
+    // se for texto: busca pelo nome parcial
+    item = list.find(e => e.name.toLowerCase().includes(code.toLowerCase()));
+  }
+
+  if (!item) {
+    document.getElementById('ad').innerHTML +=
+      '<p><strong>Código inválido</strong> — link não encontrado.</p>';
+    return;
+  }
+
+  // 5️⃣ Escolhe o link de destino (MEGA é padrão)
+  const target = item.mega || item["4shared"];
+  if (!target) {
+    document.getElementById('ad').innerHTML +=
+      '<p>Nenhum link válido encontrado para este item.</p>';
+    return;
+  }
+
+  // 6️⃣ Contagem regressiva e redirecionamento
+  let count = 5;
+  const countEl = document.getElementById('count');
+  const timer = setInterval(() => {
+    count--;
+    countEl.textContent = count;
+    if (count <= 0) {
+      clearInterval(timer);
+      window.location.href = target;
+    }
+  }, 1000);
+})();
 </script>

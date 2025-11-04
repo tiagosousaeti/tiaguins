@@ -68,6 +68,9 @@
                     <div class="footer-right"></div>
                 </div>
             </footer>
-        </div>        
+        </div>
+        <script id="redirects-data" type="application/json">
+            {{ site.data.redirects | jsonify | default: "{}" }}
+        </script>
     </body>
 </html>
