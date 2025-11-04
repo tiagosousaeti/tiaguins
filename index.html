@@ -1,46 +1,49 @@
 ---
 layout: default
-title: Tiaguins Short - Demo
+title: Tiaguins
 ---
 
-
 <section>
-    <h2>Demo do encurtador (estático)</h2>
-    <p>Use a URL com o código no final para testar. Exemplo:</p>
-    <code>https://<username>.github.io/tiaguins-short/?to=https://example.com</code>
-
-
-    <div class="ad-box" id="ad">
+    <h2>Redirecionando...</h2>
+      <div id="ad">
         <p>Publicidade — anunciante fictício</p>
         <p>Aguarde <span id="count">5</span> segundos — você será redirecionado.</p>
-    </div>
+      </div>
 </section>
 
 
 <script>
-    // Leitura simples de query param "to" para fazer o redirect após contagem
-    function getParam(name) {
-        const url = new URL(window.location.href);
-        return url.searchParams.get(name);
-    }
+    async function runRedirect() {
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get("code");
+        if (!code) {
+            document.getElementById("ad").innerHTML += "<p>Adicione ?code=SEU_CODIGO à URL.</p>";
+            return;
+        }
 
-    const target = getParam('to');
-    const countEl = document.getElementById('count');
-    let count = 5;
-
-
-    if (target) {
-        const interval = setInterval(() => {
-            count -= 1;
-            countEl.textContent = count;
-            if (count <= 0) {
-                clearInterval(interval);
-                // redireciona para o destino
-                window.location.href = target;
+        try {
+            const res = await fetch("/redirects.json");
+            const redirects = await res.json();
+            const target = redirects[code];
+            if (!target) {
+                document.getElementById("ad").innerHTML += "<p>Código inválido.</p>";
+                return;
             }
-        }, 1000);
-    } else {
-        // Sem 'to' mostra instruções
-        document.getElementById('ad').innerHTML += '<p>Para testar, adicione ?to=https://exemplo.com à URL.</p>';
+
+            let count = 5;
+            const countEl = document.getElementById("count");
+            const timer = setInterval(() => {
+                count--;
+                countEl.textContent = count;
+                if (count <= 0) {
+                    clearInterval(timer);
+                    window.location.href = target;
+                }
+            }, 1000);
+        } catch (e) {
+            document.getElementById("ad").innerHTML += "<p>Erro ao carregar os redirecionamentos.</p>";
+            console.error(e);
+        }
     }
+    runRedirect(); 
 </script>
