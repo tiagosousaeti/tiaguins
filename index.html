@@ -1,79 +1,93 @@
 ---
 layout: default
-title: Tiaguins
+title: Link Curto - Aguarde
+permalink: /
+redirect_to: https://tiaguins.blogspot.com/ # URL de redirecionamento padrão, se acessado sem link curto
 ---
 
-<section>
-    <h2>Redirecionando...</h2>
-      <div id="ad">
-        <p>Publicidade — anunciante fictício</p>
-        <p>Aguarde <span id="count">5</span> segundos — você será redirecionado.</p>
-      </div>
-</section>
+<section style="text-align: center; padding: 50px 20px;">
+    <h2>Você está sendo redirecionado para o link solicitado.</h2>
+    <p>Aguarde um momento. Isso garante que o serviço de encurtamento continue ativo.</p>
+    
+    <div style="margin: 30px auto; max-width: 728px; border: 1px solid #eee; padding: 10px;">
+        
+        <!-- Encurtador_Página_Espera -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-7884324399075505"
+            data-ad-slot="2323673367"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>        
+        
+    </div>
 
+    <h2 id="countdown">Redirecionando em <span id="count">5</span> segundos...</h2>
+</section>
 
 <script> 
 (function(){
-  // 1️⃣ Lê o JSON gerado pelo Jekyll (a partir do _data/redirects.yml)
-  let redirects = {};
-  try {
-    const dataEl = document.getElementById('redirects-data');
-    if (dataEl && dataEl.textContent.trim()) {
-      redirects = JSON.parse(dataEl.textContent);
+    // 1️⃣ Obtém dados do YML
+    let redirects = {};
+    try {
+        const dataEl = document.getElementById('redirects-data');
+        if (dataEl && dataEl.textContent.trim()) {
+            redirects = JSON.parse(dataEl.textContent);
+        }
+    } catch(e) {
+        console.error("Erro ao ler YAML:", e);
     }
-  } catch(e) {
-    console.error("Erro ao ler YAML:", e);
-  }
 
-  // 2️⃣ Verifica se há a lista de códigos
-  const list = redirects.codes || [];
+    // 2️⃣ Obtém o parâmetro 'code' da URL
+    const list = redirects.codes || [];
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
 
-  // 3️⃣ Lê o parâmetro ?code= (exemplo: ?code=1 ou ?code=revista2)
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-
-  if (!code) {
-    document.getElementById('ad').innerHTML +=
-      '<p>Adicione <code>?code=NUMERO</code> à URL.</p>';
-    return;
-  }
-
-  // 4️⃣ Localiza o item correspondente
-  // Você pode buscar por posição (1, 2, 3...) ou parte do nome
-  let item = null;
-  if (!isNaN(code)) {
-    // se for número: usa o índice
-    const index = parseInt(code, 10) - 1;
-    if (list[index]) item = list[index];
-  } else {
-    // se for texto: busca pelo nome parcial
-    item = list.find(e => e.name.toLowerCase().includes(code.toLowerCase()));
-  }
-
-  if (!item) {
-    document.getElementById('ad').innerHTML +=
-      '<p><strong>Código inválido</strong> — link não encontrado.</p>';
-    return;
-  }
-
-  // 5️⃣ Escolhe o link de destino (MEGA é padrão)
-  const target = item.mega || item["4shared"];
-  if (!target) {
-    document.getElementById('ad').innerHTML +=
-      '<p>Nenhum link válido encontrado para este item.</p>';
-    return;
-  }
-
-  // 6️⃣ Contagem regressiva e redirecionamento
-  let count = 5;
-  const countEl = document.getElementById('count');
-  const timer = setInterval(() => {
-    count--;
-    countEl.textContent = count;
-    if (count <= 0) {
-      clearInterval(timer);
-      window.location.href = target;
+    const statusEl = document.getElementById('status-message');
+    const countdownEl = document.getElementById('countdown');
+    const countEl = document.getElementById('count');
+    
+    if (!code) {
+        statusEl.innerHTML = '<p><strong>Erro:</strong> Nenhum código de link fornecido. Adicione <code>?code=NUMERO</code> à URL.</p>';
+        return;
     }
-  }, 1000);
+
+    // 3️⃣ Localiza o item (Busca pelo nome parcial, como no seu código original)
+    // Usando o código como string de busca (ex: '1', 'revista', 'heroi n° 1')
+    let item = list.find(e => {
+        // Tenta buscar pelo nome ou se for número, compara a posição
+        return e.name.toLowerCase().includes(code.toLowerCase()) || 
+               (parseInt(code) >= 1 && list.indexOf(e) === parseInt(code) - 1);
+    });
+
+    if (!item) {
+        statusEl.innerHTML = '<p><strong>Código inválido:</strong> Link não encontrado na base de dados.</p>';
+        return;
+    }
+
+    // 4️⃣ Define o link de destino (Preferindo o MEGA, se existir)
+    const target = item.mega || item["4shared"];
+    if (!target) {
+        statusEl.innerHTML = '<p>Nenhum link de destino (MEGA/4shared) encontrado para este item.</p>';
+        return;
+    }
+
+    // 5️⃣ Sucesso: Inicia a contagem regressiva e o redirecionamento
+    statusEl.innerHTML = `<p>Link encontrado: <strong>${item.name}</strong>. Iniciando redirecionamento...</p>`;
+    countdownEl.style.display = 'block';
+
+    let count = 5;
+    const timer = setInterval(() => {
+        count--;
+        countEl.textContent = count;
+        if (count <= 0) {
+            clearInterval(timer);
+            countdownEl.innerHTML = 'Redirecionando agora...';
+            window.location.href = target;
+        }
+    }, 1000);
+
 })();
 </script>
