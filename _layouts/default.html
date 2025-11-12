@@ -70,7 +70,7 @@
             </footer>
         </div>
         <script id="redirects-data" type="application/json">
-            {{ site.data.redirects | jsonify | default: "{}" }}
+            {{ site.data.redirects | jsonify | default: '{}' }}
         </script>
     </body>
 </html>
